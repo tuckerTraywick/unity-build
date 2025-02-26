@@ -7,6 +7,8 @@ if [ $1 ]; then
 	./binary/test
 fi
 
-echo
-echo "---- RUNNING ----"
-./binary/run
+if [ -f binary/run ]; then
+	echo
+	echo "---- RUNNING ----"
+	./binary/run
+fi

@@ -23,7 +23,9 @@ rm -rf build/* binary/*
 createUnit source > build/source.c
 echo $sourceCommand
 eval $sourceCommand
-clang $flags $includes $libraries build/source.o source/main.c -o binary/run
+if [ -f source/main.c ]; then
+	clang $flags $includes $libraries build/source.o source/main.c -o binary/run
+fi
 
 # Create the test compilation unit and executable.
 if [ $1 ]; then

@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "test.h"
+#include "foo.h"
 
 int main(void) {
-	foo();
+	doSomething();
 	printf("Run here.\n");
 	return 0;
 }

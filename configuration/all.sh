@@ -1,4 +1,5 @@
 #!/bin/sh
+compiler="gcc"
 flags=" -std=gnu99 -Wall -Wextra -Wpedantic"
 includes=" -Iinclude"
 libraries=

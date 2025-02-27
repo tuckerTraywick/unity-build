@@ -25,9 +25,9 @@ fi
 source "configuration/$configuration.sh"
 
 # Generate the commands the script uses to compile and link the program and tests.
-sourceCommand="gcc $flags $defines $includes build/source.c -c -o build/source.o $libraries"
-executableCommand="gcc $flags $defines $includes build/source.o source/main.c -o binary/run $libraries"
-testCommand="gcc $flags $defines $includes build/source.o build/test.c -o binary/test $libraries"
+sourceCommand="$compiler $flags $defines $includes build/source.c -c -o build/source.o $libraries"
+executableCommand="$compiler $flags $defines $includes build/source.o source/main.c -o binary/run $libraries"
+testCommand="$compiler $flags $defines $includes build/source.o build/test.c -o binary/test $libraries"
 
 # Echoes a single C file that includes every file in the first argument's directory except 'main.c'.
 createUnit() {

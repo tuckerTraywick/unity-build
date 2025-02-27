@@ -1,9 +1,9 @@
 #/bin/sh
-flags="-O -g3 -std=c99 -Wall -Wextra -Wpedantic"
+flags="-O -g3 -std=gnu99 -Wall -Wextra -Wpedantic"
 includes="-Iinclude"
 libraries=
-sourceCommand="clang $flags $includes $libraries build/source.c -c -o build/source.o"
-testCommand="clang $flags $includes $libraries build/source.o build/test.c -o binary/test"
+sourceCommand="gcc $flags $includes $libraries build/source.c -c -o build/source.o"
+testCommand="gcc $flags $includes $libraries build/source.o build/test.c -o binary/test"
 
 createUnit() {
 	for file in $(find $1 -type f ! -name "main.c")
@@ -11,6 +11,12 @@ createUnit() {
 		echo "#include \"../$file\""
 	done
 }
+
+while getopts "t" test; do
+	if [ $test == "t" ]; then
+		$test=true
+	fi
+done
 
 clear
 echo "---- BUILDING ----"
@@ -24,11 +30,11 @@ createUnit source > build/source.c
 echo $sourceCommand
 eval $sourceCommand
 if [ -f source/main.c ]; then
-	clang $flags $includes $libraries build/source.o source/main.c -o binary/run
+	gcc $flags $includes $libraries build/source.o source/main.c -o binary/run
 fi
 
 # Create the test compilation unit and executable.
-if [ $1 ]; then
+if [ $test ]; then
 	createUnit tests > build/test.c
 	echo
 	echo $testCommand

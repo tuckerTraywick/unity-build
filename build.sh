@@ -2,8 +2,8 @@
 flags="-O -g3 -std=gnu99 -Wall -Wextra -Wpedantic"
 includes="-Iinclude"
 libraries=
-sourceCommand="gcc $flags $includes $libraries build/source.c -c -o build/source.o"
-testCommand="gcc $flags $includes $libraries build/source.o build/test.c -o binary/test"
+sourceCommand="gcc $flags $includes build/source.c -c -o build/source.o $libraries"
+testCommand="gcc $flags $includes build/source.o build/test.c -o binary/test $libraries"
 
 createUnit() {
 	for file in $(find $1 -type f ! -name "main.c")

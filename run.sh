@@ -1,35 +1,23 @@
-#/bin/sh
-$valgrindFlags="--leak-check=full --show-leak-kinds=all --track-origins=yes"
+#!/bin/sh
+# Build the code.
+source ./build.sh $@
 
-./build.sh $@
-
-test=false
-valgrind=false
-while getopts "tv" option; do
-	case $option in
-		t)
-		test=true
-		;;
-		v)
-		valgrind=true
-		;;
-	esac
-done
-
-if $test; then
+# Run the tests.
+if "$test"; then
 	echo
 	echo "---- TESTING ----"
-	if $valgrind; then
+	if "$valgrind"; then
 		valgrind $valgrindFlags binary/test
 	else
 		./binary/test
 	fi
 fi
 
+# Run the build.
 if [ -f binary/run ]; then
 	echo
 	echo "---- RUNNING ----"
-	if $valgrind; then
+	if "$valgrind"; then
 		valgrind $valgrindFlags binary/run
 	else
 		./binary/run

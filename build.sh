@@ -12,15 +12,15 @@ createUnit() {
 	done
 }
 
-while getopts "t" test; do
-	if [ $test == "t" ]; then
-		$test=true
+test=false
+while getopts "t" option; do
+	if [ $option == "t" ]; then
+		test=true
 	fi
 done
 
 clear
 echo "---- BUILDING ----"
-
 # Cleanup.
 mkdir -p build binary
 rm -rf build/* binary/*
@@ -34,7 +34,7 @@ if [ -f source/main.c ]; then
 fi
 
 # Create the test compilation unit and executable.
-if [ $test ]; then
+if $test; then
 	createUnit tests > build/test.c
 	echo
 	echo $testCommand
